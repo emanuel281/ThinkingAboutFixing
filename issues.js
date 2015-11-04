@@ -1,4 +1,4 @@
-var logger = require('./log');
+    var logger = require('./log');
 
 exports.all = function (req, res) {
     req.getConnection(function(err, connection){
@@ -12,7 +12,13 @@ exports.get = function (req, res) {
     req.getConnection(function(err, connection){
         connection.query("select * from issues where id = ?", req.params.id, function(err, results){
             console.log(results);
-            return res.render('issue_edit', {issue : results[0]})
+
+            var issue = {};
+            issue.heading = results[0].heading;
+            issue.description = results[0].description;
+            issue.id = results[0].id;
+
+            return res.render('issue_edit', {issue : issue})
         });
     });
 
